@@ -1,0 +1,147 @@
+/* --- CONFIGURAÇÕES GERAIS --- */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f3f2f5; /* Fundo geral off-white/cinza claro */
+    font-family: 'Inter', sans-serif;
+    color: #2c2c2c; /* Texto grafite escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Cursor customizado imitando uma varinha mágica fina */
+    cursor: url('https://cdn-icons-png.flaticon.com/shareable/png/11317/11317668.png') 0 0, auto;
+}
+
+/* --- MOLDURA DO SMARTPHONE (Para podermos testar no computador) --- */
+.smartphone-container {
+    width: 360px;
+    height: 740px;
+    background: #e9e8ec;
+    border: 12px solid #2c2c2c;
+    border-radius: 36px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+.app-screen {
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #f8f7f9; /* Fundo interno do app claro */
+}
+
+/* --- ESTILO MEDIEVAL (Toque da Morgana) --- */
+.titulo-medieval {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 32px;
+    text-align: center;
+    margin: 10px 0;
+    background: linear-gradient(135deg, #bfa15f 0%, #dec58c 50%, #bfa15f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
+}
+
+.subtitulo-medieval {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 14px;
+    text-align: center;
+    color: #bfa15f;
+    letter-spacing: 1px;
+}
+
+/* --- CAMPOS DO FORMULÁRIO (Minimalista Moderno) --- */
+.cadastro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo-grupo label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.campo-grupo input {
+    padding: 12px;
+    border: 1px solid #d1cfd6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 15px;
+    color: #2c2c2c;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.campo-grupo input:focus {
+    border-color: #8a70bc; /* Foco muda para o Roxo Lavanda */
+    box-shadow: 0 0 0 3px rgba(138, 112, 188, 0.15);
+}
+
+.checkbox-grupo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #555;
+}
+
+/* --- O BOTÃO ROXO LAVANDA --- */
+.botao-lavanda {
+    background: #8a70bc; /* Roxo Lavanda Escolhido */
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(138, 112, 188, 0.3);
+    margin-top: 10px;
+}
+
+.botao-lavanda:hover {
+    background: #765ca4;
+    box-shadow: 0 6px 16px rgba(138, 112, 188, 0.4);
+}
+
+/* --- EFEITO PÓ DE OURO DA VARINHA --- */
+.particula-ouro {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #ffe596 0%, #bfa15f 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 6px #ffe596;
+    transform: translate(-50%, -50%);
+    animation: sumir 0.5s ease-out forwards;
+}
+
+@keyframes sumir {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+}
