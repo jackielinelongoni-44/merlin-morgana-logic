@@ -5,12 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkboxHora = document.getElementById("nao-sei-hora");
     const appScreen = document.querySelector(".app-screen");
 
-    // --- MÁSCARA CORRIGIDA PARA A DATA (Insere as barras automaticamente) ---
+    // --- MÁSCARA DA DATA (Garante as barras / automáticas) ---
     inputData.addEventListener("keyup", (e) => {
-        // Se o usuário estiver apagando com o Backspace, não bota a barra de volta
         if (e.key === "Backspace") return;
 
-        let v = inputData.value.replace(/\D/g, ""); // Pega apenas os números
+        let v = inputData.value.replace(/\D/g, ""); // Remove letras
         
         if (v.length > 2 && v.length <= 4) {
             inputData.value = v.substring(0, 2) + " / " + v.substring(2);
@@ -19,18 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- MÁSCARA CORRIGIDA PARA A HORA (Insere os dois pontos automaticamente) ---
+    // --- MÁSCARA DA HORA (Garante os dois pontos : automáticos) ---
     inputHora.addEventListener("keyup", (e) => {
         if (e.key === "Backspace") return;
 
-        let v = inputHora.value.replace(/\D/g, ""); // Pega apenas os números
+        let v = inputHora.value.replace(/\D/g, ""); // Remove letras
         
         if (v.length > 2) {
             inputHora.value = v.substring(0, 2) + " : " + v.substring(2, 4);
         }
     });
 
-    // Se marcar "Não sei minha hora", preenche com 12:00 e desabilita o campo
+    // Se marcar "Não sei minha hora", preenche com 12:00 e bloqueia o campo
     checkboxHora.addEventListener("change", (e) => {
         if (e.target.checked) {
             inputHora.value = "12 : 00";
@@ -41,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- AÇÃO DO BOTÃO: ENTRAR NO PORTAL (TELA 2) ---
+    // --- AÇÃO DO BOTÃO: ENTRAR NO PORTAL (A parte do seu print!) ---
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
