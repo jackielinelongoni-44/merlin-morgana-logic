@@ -1,31 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".cadastro-form");
-    const inputData = document.getElementById("data");
     const inputHora = document.getElementById("hora");
     const checkboxHora = document.getElementById("nao-sei-hora");
     const appScreen = document.querySelector(".app-screen");
 
-    // --- MÁSCARA ULTRA RÁPIDA PARA A DATA (Aparece ao digitar) ---
-    inputData.addEventListener("input", () => {
-        let v = inputData.value.replace(/\D/g, ""); // Remove tudo que não for número
-        
-        if (v.length > 2 && v.length <= 4) {
-            inputData.value = v.substring(0, 2) + "/" + v.substring(2);
-        } else if (v.length > 4) {
-            inputData.value = v.substring(0, 2) + "/" + v.substring(2, 4) + "/" + v.substring(4, 8);
-        }
-    });
-
-    // --- MÁSCARA ULTRA RÁPIDA PARA A HORA ---
-    inputHora.addEventListener("input", () => {
-        let v = inputHora.value.replace(/\D/g, ""); // Remove tudo que não for número
-        
-        if (v.length > 2) {
-            inputHora.value = v.substring(0, 2) + ":" + v.substring(2, 4);
-        }
-    });
-
-    // Se marcar "Não sei minha hora", preenche com 12:00 e bloqueia o campo
+    // Se marcar "Não sei minha hora", preenche e bloqueia
     checkboxHora.addEventListener("change", (e) => {
         if (e.target.checked) {
             inputHora.value = "12:00";
@@ -41,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const nome = document.getElementById("nome").value;
-        const data = inputData.value;
+        const data = document.getElementById("data").value;
         const hora = inputHora.value;
         const cidade = document.getElementById("cidade").value;
 
