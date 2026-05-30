@@ -145,3 +145,56 @@ body {
         opacity: 0;
     }
 }
+
+/* --- TELA DE CARREGAMENTO MÍSTICA --- */
+.carregamento-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* A Orbe da Morgana girando e pulsando */
+.orbe-mistica {
+    width: 80px;
+    height: 80px;
+    margin: 40px 0;
+    border: 3px solid rgba(138, 112, 188, 0.2);
+    border-top: 3px solid #8a70bc; /* Lavanda */
+    border-bottom: 3px solid #bfa15f; /* Dourado */
+    border-radius: 50%;
+    animation: girar 2s linear infinite, pulsar 1.5s ease-in-out infinite alternate;
+    box-shadow: 0 0 20px rgba(138, 112, 188, 0.4);
+}
+
+.texto-carregamento {
+    font-size: 14px;
+    color: #2c2c2c;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.subtexto-carregamento {
+    font-size: 11px;
+    color: #bfa15f;
+    font-style: italic;
+}
+
+@keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulsar {
+    0% { box-shadow: 0 0 10px rgba(138, 112, 188, 0.3); }
+    100% { box-shadow: 0 0 25px rgba(191, 161, 95, 0.6); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
