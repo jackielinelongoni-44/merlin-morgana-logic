@@ -5,34 +5,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const checkboxHora = document.getElementById("nao-sei-hora");
     const appScreen = document.querySelector(".app-screen");
 
-    // --- MÁSCARA DA DATA (Garante as barras / automáticas) ---
-    inputData.addEventListener("keyup", (e) => {
-        if (e.key === "Backspace") return;
-
-        let v = inputData.value.replace(/\D/g, ""); // Remove letras
+    // --- MÁSCARA ULTRA RÁPIDA PARA A DATA (Aparece ao digitar) ---
+    inputData.addEventListener("input", () => {
+        let v = inputData.value.replace(/\D/g, ""); // Remove tudo que não for número
         
         if (v.length > 2 && v.length <= 4) {
-            inputData.value = v.substring(0, 2) + " / " + v.substring(2);
+            inputData.value = v.substring(0, 2) + "/" + v.substring(2);
         } else if (v.length > 4) {
-            inputData.value = v.substring(0, 2) + " / " + v.substring(2, 4) + " / " + v.substring(4, 8);
+            inputData.value = v.substring(0, 2) + "/" + v.substring(2, 4) + "/" + v.substring(4, 8);
         }
     });
 
-    // --- MÁSCARA DA HORA (Garante os dois pontos : automáticos) ---
-    inputHora.addEventListener("keyup", (e) => {
-        if (e.key === "Backspace") return;
-
-        let v = inputHora.value.replace(/\D/g, ""); // Remove letras
+    // --- MÁSCARA ULTRA RÁPIDA PARA A HORA ---
+    inputHora.addEventListener("input", () => {
+        let v = inputHora.value.replace(/\D/g, ""); // Remove tudo que não for número
         
         if (v.length > 2) {
-            inputHora.value = v.substring(0, 2) + " : " + v.substring(2, 4);
+            inputHora.value = v.substring(0, 2) + ":" + v.substring(2, 4);
         }
     });
 
     // Se marcar "Não sei minha hora", preenche com 12:00 e bloqueia o campo
     checkboxHora.addEventListener("change", (e) => {
         if (e.target.checked) {
-            inputHora.value = "12 : 00";
+            inputHora.value = "12:00";
             inputHora.disabled = true;
         } else {
             inputHora.value = "";
@@ -40,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- AÇÃO DO BOTÃO: ENTRAR NO PORTAL (A parte do seu print!) ---
+    // --- AÇÃO DO BOTÃO: ENTRAR NO PORTAL ---
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
