@@ -44,15 +44,59 @@ def calcular_mapa_base(ano, mes, dia, hora_utc):
         
     return mapa_calculado
 
-# --- TESTANDO O MOTOR ---
+def calcular_casas_regiomontanus(ano, mes, dia, hora_utc, latitude, longitude):
+    """
+    Calcula as 12 casas astrológicas e os ângulos principais (Asc/MC)
+    utilizando estritamente o sistema Regiomontanus ('R').
+    """
+    dia_juliano = swe.julday(ano, mes, dia, hora_utc)
+    
+    # 'R' define o sistema Regiomontanus na biblioteca
+    # Retorna duas listas: a primeira com as 12 casas, a segunda com [Asc, MC, etc.]
+    cuspides, ascmc = swe.houses(dia_juliano, latitude, longitude, b'R')
+    
+    casas_calculadas = {}
+    
+    # Organiza as 12 cúspides das casas
+    for i in range(1, 13):
+        graus_totais = cuspides[i]
+        signo, grau_exato = converter_graus_para_signo(graus_totais)
+        casas_calculadas[f"Casa {i}"] = {
+            "signo": signo,
+            "grau": round(grau_exato, 2)
+        }
+        
+    # Organiza os ângulos principais
+    signo_asc, grau_asc = converter_graus_para_signo(ascmc[0])
+    signo_mc, grau_mc = converter_graus_para_signo(ascmc[1])
+    
+    casas_calculadas["Ascendente"] = {"signo": signo_asc, "grau": round(grau_asc, 2)}
+    casas_calculadas["Meio do Céu"] = {"signo": signo_mc, "grau": round(grau_mc, 2)}
+    
+    return casas_calculadas
+
+# --- TESTANDO O MOTOR COMPLETO ---
 if __name__ == "__main__":
-    # Exemplo de teste com o momento atual (Maio de 2026)
+    # Exemplo: Um nascimento em Porto Alegre - RS
+    # Latitude: -30.03, Longitude: -51.21
     ano, mes, dia = 2026, 5, 30
-    hora_utc = 22.0  # Ajustado para Tempo Universal
+    hora_utc = 22.0  
+    lat, lon = -30.03, -51.21
     
     print("🔮 Rodando as engrenagens de 'merlin-morgana-logic'...")
-    meu_mapa = calcular_mapa_base(ano, mes, dia, hora_utc)
     
-    print(f"\n--- POSIÇÃO DOS ASTROS ({dia}/{mes}/{ano}) ---")
-    for planeta, dados in meu_mapa.items():
+    # 1. Calcula Planetas
+    planetas = calcular_mapa_base(ano, mes, dia, hora_utc)
+    # 2. Calcula Casas (Regiomontanus)
+    casas = calcular_casas_regiomontanus(ano, mes, dia, hora_utc, lat, lon)
+    
+    print(f"\n--- POSIÇÃO DOS ASTROS ---")
+    for planeta, dados in planetas.items():
         print(f"🔹 {planeta}: {dados['signo']} a {dados['grau']}°")
+        
+    print(f"\n--- CÚSPIDES REGIOMONTANUS ---")
+    print(f"🌅 Ascendente: {casas['Ascendente']['signo']} a {casas['Ascendente']['grau']}°")
+    print(f"👑 Meio do Céu: {casas['Meio do Céu']['signo']} a {casas['Meio do Céu']['grau']}°")
+    for i in range(1, 13):
+        nome_casa = f"Casa {i}"
+        print(f"🏠 {nome_casa}: {casas[nome_casa]['signo']} a {casas[nome_casa]['grau']}°")
