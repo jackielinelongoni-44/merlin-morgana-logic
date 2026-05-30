@@ -1,24 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".cadastro-form");
-    const botao = document.querySelector(".botao-lavanda");
-    const appScreen = document.querySelector(".app-screen");
     const inputData = document.getElementById("data");
     const inputHora = document.getElementById("hora");
     const checkboxHora = document.getElementById("nao-sei-hora");
+    const appScreen = document.querySelector(".app-screen");
 
-    // --- MÁSCARA INTELIGENTE PARA A DATA (Teclado Numérico) ---
-    inputData.addEventListener("input", (e) => {
-        let v = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
-        if (v.length >= 2) v = v.substring(0, 2) + " / " + v.substring(2);
-        if (v.length >= 7) v = v.substring(0, 7) + " / " + v.substring(7, 11);
-        e.target.value = v;
+    // --- MÁSCARA CORRIGIDA PARA A DATA (Insere as barras automaticamente) ---
+    inputData.addEventListener("keyup", (e) => {
+        // Se o usuário estiver apagando com o Backspace, não bota a barra de volta
+        if (e.key === "Backspace") return;
+
+        let v = inputData.value.replace(/\D/g, ""); // Pega apenas os números
+        
+        if (v.length > 2 && v.length <= 4) {
+            inputData.value = v.substring(0, 2) + " / " + v.substring(2);
+        } else if (v.length > 4) {
+            inputData.value = v.substring(0, 2) + " / " + v.substring(2, 4) + " / " + v.substring(4, 8);
+        }
     });
 
-    // --- MÁSCARA INTELIGENTE PARA A HORA ---
-    inputHora.addEventListener("input", (e) => {
-        let v = e.target.value.replace(/\D/g, "");
-        if (v.length >= 2) v = v.substring(0, 2) + " : " + v.substring(2, 4);
-        e.target.value = v;
+    // --- MÁSCARA CORRIGIDA PARA A HORA (Insere os dois pontos automaticamente) ---
+    inputHora.addEventListener("keyup", (e) => {
+        if (e.key === "Backspace") return;
+
+        let v = inputHora.value.replace(/\D/g, ""); // Pega apenas os números
+        
+        if (v.length > 2) {
+            inputHora.value = v.substring(0, 2) + " : " + v.substring(2, 4);
+        }
     });
 
     // Se marcar "Não sei minha hora", preenche com 12:00 e desabilita o campo
@@ -34,15 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- AÇÃO DO BOTÃO: ENTRAR NO PORTAL (TELA 2) ---
     form.addEventListener("submit", (e) => {
-        e.preventDefault(); // Impede a página de atualizar
+        e.preventDefault();
 
-        // Captura o que o usuário digitou
         const nome = document.getElementById("nome").value;
         const data = inputData.value;
         const hora = inputHora.value;
         const cidade = document.getElementById("cidade").value;
 
-        // Validação simples: se esquecer de preencher, avisa
         if (!nome || !data || !hora || !cidade) {
             alert("Por favor, preencha todos os dados para alinhar os astros!");
             return;
@@ -57,8 +64,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p class="subtexto-carregamento">Calculando casas pelo sistema Regiomontanus...</p>
             </div>
         `;
-
-        // [Próximo Passo]: Aqui o JavaScript vai enviar esses dados para o motor.py
-        console.log("Dados capturados prontos para o motor:", { nome, data, hora, city: cidade });
     });
 });
