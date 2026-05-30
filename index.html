@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merlin & Morgana - Portal Astrológico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="po-magico"></div>
+
+    <div class="smartphone-container">
+        <div class="app-screen">
+            
+            <header class="app-header">
+                <h1 class="titulo-medieval">Merlin &<br>Morgana</h1>
+            </header>
+
+            <form class="cadastro-form" onsubmit="event.preventDefault();">
+                <div class="campo-grupo">
+                    <label for="nome">Seu Nome</label>
+                    <input type="text" id="nome" placeholder="Digite aqui...">
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="data">Data</label>
+                    <input type="text" id="data" inputmode="numeric" placeholder="DD / MM / AAAA" maxlength="10">
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="hora">Hora</label>
+                    <input type="text" id="hora" inputmode="numeric" placeholder="HH : MM" maxlength="5">
+                </div>
+
+                <div class="checkbox-grupo">
+                    <input type="checkbox" id="nao-sei-hora">
+                    <label for="nao-sei-hora">Não sei minha hora exata (usar 12:00)</label>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="cidade">Sua Cidade</label>
+                    <input type="text" id="cidade" placeholder="Comece a digitar...">
+                </div>
+
+                <button type="submit" class="botao-lavanda">GERAR MAPA ASTRAL</button>
+            </form>
+
+            <footer class="app-footer">
+                <p class="subtitulo-medieval">Seu Portal Astrológico</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        const po = document.getElementById('po-magico');
+        document.addEventListener('mousemove', (e) => {
+            // Cria pequenos pontos dourados conforme o mouse se mexe
+            const gota = document.createElement('div');
+            gota.className = 'particula-ouro';
+            gota.style.left = `${e.clientX}px`;
+            gota.style.top = `${e.clientY}px`;
+            document.body.appendChild(gota);
+            
+            // Remove a partícula depois de meio segundo para não travar a tela
+            setTimeout(() => {
+                gota.remove();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
